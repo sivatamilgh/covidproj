@@ -1,0 +1,20 @@
+{
+	"name": "covid-reporting-adfv5",
+	"properties": {
+		"globalParameters": {
+			"gp_sourceBaseURL": {
+				"type": "string",
+				"value": "https://github.com"
+			}
+		},
+		"globalConfigurations": {
+			"PolicyValidationEnabled": "false"
+		}
+	},
+	"location": "uksouth",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "ede1b753-9a23-4abf-ba85-13646b11708a",
+		"tenantId": "11656d26-959f-411c-8670-d4a473ed012c"
+	}
+}

@@ -1,0 +1,98 @@
+{
+	"name": "pl_ingest_ecdc_data_v2",
+	"properties": {
+		"description": "8. Linked Service Parameters implementation. which is base url added in pipeline parameter. \n// But pipeline is generic but you are in a position to create seperate trigger for each file. (because filename is different, relativeurl is different and base url if it is different in our case base url is same)",
+		"activities": [
+			{
+				"name": "Copy cases and deaths data_v3",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "DelimitedTextSource",
+						"storeSettings": {
+							"type": "HttpReadSettings",
+							"requestMethod": "GET"
+						},
+						"formatSettings": {
+							"type": "DelimitedTextReadSettings"
+						}
+					},
+					"sink": {
+						"type": "DelimitedTextSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						},
+						"formatSettings": {
+							"type": "DelimitedTextWriteSettings",
+							"quoteAllText": true,
+							"fileExtension": ".txt"
+						}
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "ds_ecdc_raw_csv_http_v2",
+						"type": "DatasetReference",
+						"parameters": {
+							"p_ds_relative_url": {
+								"value": "@pipeline().parameters.p_pl_relative_url",
+								"type": "Expression"
+							},
+							"p_ds_base_url": {
+								"value": "@pipeline().parameters.p_pl_base_url",
+								"type": "Expression"
+							}
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "ds_ecdc_raw_csv_dl",
+						"type": "DatasetReference",
+						"parameters": {
+							"p_ds_filename": {
+								"value": "@pipeline().parameters.p_pl_filename",
+								"type": "Expression"
+							}
+						}
+					}
+				]
+			}
+		],
+		"parameters": {
+			"p_pl_relative_url": {
+				"type": "string"
+			},
+			"p_pl_filename": {
+				"type": "string"
+			},
+			"p_pl_base_url": {
+				"type": "string"
+			}
+		},
+		"folder": {
+			"name": "Ingestion/Generic ECDC Data Ingestion/Modified Version"
+		},
+		"annotations": [],
+		"lastPublishTime": "2023-09-02T10:29:58Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

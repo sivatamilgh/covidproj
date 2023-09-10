@@ -1,0 +1,44 @@
+{
+	"name": "ds_ecdc_raw_csv_http_v2",
+	"properties": {
+		"description": "cloned from ds_ecdc_raw_csv_http_v1. Its parameterised for link service base url\n\n",
+		"linkedServiceName": {
+			"referenceName": "ls_http_opendata_ecdc_europa_eu_v1",
+			"type": "LinkedServiceReference",
+			"parameters": {
+				"p_ls_base_url": {
+					"value": "@dataset().p_ds_base_url",
+					"type": "Expression"
+				}
+			}
+		},
+		"parameters": {
+			"p_ds_relative_url": {
+				"type": "string"
+			},
+			"p_ds_base_url": {
+				"type": "string"
+			}
+		},
+		"folder": {
+			"name": "ECDC Dataset Ingestion HTTP to ADLS_raw/Source_HTTP/Better Version"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "HttpServerLocation",
+				"relativeUrl": {
+					"value": "@dataset().p_ds_relative_url",
+					"type": "Expression"
+				}
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": []
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

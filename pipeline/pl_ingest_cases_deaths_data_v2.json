@@ -1,0 +1,93 @@
+{
+	"name": "pl_ingest_cases_deaths_data_v2",
+	"properties": {
+		"description": "To copy hospital and cases files using pl_ingest_cases_deaths_data through variable. Still it is not wholly satisfied. Need to optimise the pipeline by parameter pipeline.\nBecause you need to create same copy paste pipeline for all the files only changing the variable value. Its not optimised",
+		"activities": [
+			{
+				"name": "Copy cases and deaths data_v2",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "DelimitedTextSource",
+						"storeSettings": {
+							"type": "HttpReadSettings",
+							"requestMethod": "GET"
+						},
+						"formatSettings": {
+							"type": "DelimitedTextReadSettings"
+						}
+					},
+					"sink": {
+						"type": "DelimitedTextSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						},
+						"formatSettings": {
+							"type": "DelimitedTextWriteSettings",
+							"quoteAllText": true,
+							"fileExtension": ".txt"
+						}
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "ds_ecdc_raw_csv_http_v1",
+						"type": "DatasetReference",
+						"parameters": {
+							"p_ds_relative_url": {
+								"value": "@variables('v_pl_relative_url')",
+								"type": "Expression"
+							}
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "ds_ecdc_raw_csv_dl",
+						"type": "DatasetReference",
+						"parameters": {
+							"p_ds_filename": {
+								"value": "@variables('v_pl_filename')",
+								"type": "Expression"
+							}
+						}
+					}
+				]
+			}
+		],
+		"variables": {
+			"v_pl_relative_url": {
+				"type": "String",
+				"defaultValue": "cloudboxacademy/covid19/raw/main/ecdc_data/hospital_admissions.csv"
+			},
+			"v_pl_filename": {
+				"type": "String",
+				"defaultValue": "hospital_admissions.csv"
+			}
+		},
+		"folder": {
+			"name": "Ingestion/Generic ECDC Data Ingestion/Modified Version"
+		},
+		"annotations": [],
+		"lastPublishTime": "2023-09-02T10:29:58Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

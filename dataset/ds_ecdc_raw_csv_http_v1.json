@@ -1,0 +1,35 @@
+{
+	"name": "ds_ecdc_raw_csv_http_v1",
+	"properties": {
+		"description": "cloned from ds_cases_deaths_raw_csv_http_v1. Its parameterised for hospital and admission file.\n\nact as ds_cases_deaths_raw_csv_http_v2",
+		"linkedServiceName": {
+			"referenceName": "ls_http_opendata_ecdc_europa_eu",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"p_ds_relative_url": {
+				"type": "string"
+			}
+		},
+		"folder": {
+			"name": "ECDC Dataset Ingestion HTTP to ADLS_raw/Source_HTTP/Modified Version"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "HttpServerLocation",
+				"relativeUrl": {
+					"value": "@dataset().p_ds_relative_url",
+					"type": "Expression"
+				}
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": []
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

@@ -1,0 +1,37 @@
+{
+	"name": "ds_ecdc_raw_csv_dl",
+	"properties": {
+		"description": "Dataset is dynamic in nature for destination file name",
+		"linkedServiceName": {
+			"referenceName": "ls_adls_covidreportingdlv5",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"p_ds_filename": {
+				"type": "string"
+			}
+		},
+		"folder": {
+			"name": "ECDC Dataset Ingestion HTTP to ADLS_raw/Sink_ADLS"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": {
+					"value": "@dataset().p_ds_filename",
+					"type": "Expression"
+				},
+				"folderPath": "ecdc",
+				"fileSystem": "raw"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": []
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}
