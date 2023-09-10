@@ -1,0 +1,6 @@
+{
+	"gp_sourceBaseURL": {
+		"type": "string",
+		"value": "https://github.com"
+	}
+}

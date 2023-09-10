@@ -1,0 +1,57 @@
+{
+	"$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"value": "covid-reporting-adfv5"
+		},
+		"ls_ablob_covidreportingsav5_connectionString": {
+			"value": ""
+		},
+		"ls_adls_covidreportingdlv5_accountKey": {
+			"value": ""
+		},
+		"ls_covid_processeddata_sql_ingestion_connectionString": {
+			"value": ""
+		},
+		"ls_db_covid_cluster_accessToken": {
+			"value": ""
+		},
+		"ls_db_covid_clusterV1_accessToken": {
+			"value": ""
+		},
+		"ls_db_covid_clusterV2_accessToken": {
+			"value": ""
+		},
+		"ls_adls_covidreportingdlv5_properties_typeProperties_url": {
+			"value": "https://covidreportingdlv5.dfs.core.windows.net/"
+		},
+		"ls_db_covid_clusterV2_properties_typeProperties_existingClusterId": {
+			"value": "0903-072907-2afxyd64"
+		},
+		"ls_http_opendata_ecdc_europa_eu_properties_typeProperties_url": {
+			"value": "https://github.com"
+		},
+		"ls_http_opendata_ecdc_europa_eu_v1_properties_typeProperties_url": {
+			"value": "@{linkedService().p_ls_base_url}"
+		},
+		"tr_execute_population_data_properties_typeProperties_scope": {
+			"value": "/subscriptions/6c29980d-de58-447d-ad43-7d4bd5211b24/resourceGroups/covid-reporting-rg/providers/Microsoft.Storage/storageAccounts/covidreportingsav5"
+		},
+		"tr_ingest_cases_deaths_data_properties_pl_ingest_ecdc_data_v1_parameters_p_pl_relative_url": {
+			"value": "cloudboxacademy/covid19/raw/main/ecdc_data/cases_deaths.csv"
+		},
+		"tr_ingest_cases_deaths_data_properties_pl_ingest_ecdc_data_v1_parameters_p_pl_filename": {
+			"value": "cases_deaths.csv"
+		},
+		"tr_ingest_hospital_admission_data_properties_pl_ingest_ecdc_data_v1_parameters_p_pl_relative_url": {
+			"value": "cloudboxacademy/covid19/raw/main/ecdc_data/hospital_admissions.csv"
+		},
+		"tr_ingest_hospital_admission_data_properties_pl_ingest_ecdc_data_v1_parameters_p_pl_filename": {
+			"value": "hospital_admissions.csv"
+		},
+		"tr_ingest_population_data_properties_typeProperties_scope": {
+			"value": "/subscriptions/6c29980d-de58-447d-ad43-7d4bd5211b24/resourceGroups/covid-reporting-rg/providers/Microsoft.Storage/storageAccounts/covidreportingsav5"
+		}
+	}
+}
